@@ -38,8 +38,8 @@ func RegisterUser(responseWriter http.ResponseWriter, request *http.Request) {
 
 	_, err = db.Db.Exec("INSERT INTO users (login, password) VALUES ($1, $2)", user.Login, hashedPassword)
 	if err != nil {
-		fmt.Println("Error inserting user datas :", err)
-		responseWriter.WriteHeader(http.StatusInternalServerError)
+		responseWriter.WriteHeader(http.StatusConflict)
+		responseWriter.Write([]byte(err.Error()))
 		return
 	}
 
