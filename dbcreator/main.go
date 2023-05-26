@@ -26,14 +26,14 @@ func seedDatabase(db *sql.DB) error {
 	_, err := db.Exec(`
 	CREATE TABLE IF NOT EXISTS users (
 		id SERIAL PRIMARY KEY,
-		login VARCHAR(50) UNIQUE,
-		password VARCHAR(50)
+		login text UNIQUE,
+		password text
 	);
 
 	CREATE TABLE IF NOT EXISTS vehicules (
 		id SERIAL PRIMARY KEY,
-		name VARCHAR(50) UNIQUE,
-		type VARCHAR(50)
+		name text UNIQUE,
+		type text
 	);
 
 	CREATE TABLE IF NOT EXISTS location (
