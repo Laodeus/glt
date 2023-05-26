@@ -2,7 +2,9 @@
 
 ## Description
 
-CGLT est une API écrite en Go qui permet à un utilisateur de se connecter, de prendre un véhicule et d'envoyer sa position avec un timestamp. En appelant l'API à intervalle régulier, cela enregistre la position de l'utilisateur. Un endpoint permet de récupérer l'utilisateur et ses déplacements dans un appareil, et un autre endpoint permet de récupérer les appareils avec leurs positions et leur utilisateur.
+Global Location Tracking
+
+GLT est une API écrite en Go qui permet à un utilisateur de se connecter, de prendre un véhicule et d'envoyer sa position avec un timestamp. En appelant l'API à intervalle régulier, cela enregistre la position de l'utilisateur. Un endpoint permet de récupérer l'utilisateur et ses déplacements dans un appareil, et un autre endpoint permet de récupérer les appareils avec leurs positions et leur utilisateur.
 
 ## Endpoint
 
