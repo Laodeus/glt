@@ -9,11 +9,6 @@ import (
 )
 
 func PostNewVehicules(responseWriter http.ResponseWriter, request *http.Request) {
-	if request.Method != http.MethodPost {
-		responseWriter.WriteHeader(http.StatusMethodNotAllowed)
-		return
-	}
-
 	var vehicule Vehicules
 	err := json.NewDecoder(request.Body).Decode(&vehicule)
 	if err != nil {

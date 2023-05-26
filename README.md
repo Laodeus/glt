@@ -42,7 +42,7 @@ return : string
 return : string
 
 
-- GET /api/v1/vehicles : Cet endpoint permet à l'utilisateur de recuperer la liste des véhicules. il retourne la liste es véhicules.
+- GET /api/v1/vehicles : Cet endpoint permet à l'utilisateur de recuperer la liste des véhicules. il retourne la liste des véhicules.
 
 return : JSON
 '''json
