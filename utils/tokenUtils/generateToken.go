@@ -3,7 +3,7 @@ package tokenUtils
 import (
 	"os"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 )
 
 func GenerateToken(userId int) (string, error) {
