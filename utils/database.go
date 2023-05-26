@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	_ "github.com/lib/pq" // Import du pilote PostgreSQL
+	_ "github.com/lib/pq"
 )
 
 type Database struct {
