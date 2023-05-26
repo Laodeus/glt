@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"database/sql"
@@ -10,10 +10,10 @@ import (
 )
 
 type Database struct {
-	db *sql.DB
+	Db *sql.DB
 }
 
-func getDb() (*Database, error) {
+func GetDb() (*Database, error) {
 	dbHost := os.Getenv("DB_HOST")
 	dbPort := os.Getenv("DB_PORT")
 	dbUser := os.Getenv("DB_USER")
@@ -35,9 +35,9 @@ func getDb() (*Database, error) {
 
 	fmt.Println("success connecting to database")
 
-	return &Database{db: db}, nil
+	return &Database{Db: db}, nil
 }
 
 func (d *Database) Close() {
-	d.db.Close()
+	d.Db.Close()
 }

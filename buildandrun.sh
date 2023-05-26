@@ -1,1 +1,1 @@
-go build -o ./dist/glt ./src/* && ./dist/glt
+go build -o ./dist/glt ./main/* && ./dist/glt

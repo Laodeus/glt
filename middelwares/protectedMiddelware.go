@@ -1,19 +1,18 @@
-package main
+package middlewares
 
 import (
 	"fmt"
 	"net/http"
-	"os"
+
 	"strings"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/Laodeus/glt/tokenUtils"
+	"github.com/golang-jwt/jwt"
 )
 
 // handle middelware
 func ProtectedMiddelware(next http.HandlerFunc) http.HandlerFunc {
 	return func(responseWriter http.ResponseWriter, request *http.Request) {
-
-		var jwtKey = []byte(os.Getenv("SECRET"))
 
 		// get the token
 		reqToken := request.Header.Get("Authorization")
@@ -29,17 +28,11 @@ func ProtectedMiddelware(next http.HandlerFunc) http.HandlerFunc {
 		responseWriter.Write([]byte("not found!"))
 
 		// Parse the token
-		token, err := jwt.Parse(reqToken, func(token *jwt.Token) (interface{}, error) {
-			// Make sure the token method conform to "SigningMethodHMAC"
-			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
-			}
-			return jwtKey, nil
-		})
+
+		token, err := tokenUtils.ParseToken(reqToken)
 
 		if err != nil {
 			http.Error(responseWriter, "Invalid token", http.StatusUnauthorized)
-			return
 		}
 
 		// If the token is valid, pass the request to the next handler

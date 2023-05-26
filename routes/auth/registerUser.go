@@ -1,10 +1,11 @@
-package main
+package routesAuth
 
 import (
 	"encoding/json"
 	"fmt"
 	"net/http"
 
+	"github.com/Laodeus/glt/utils"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -33,7 +34,7 @@ func RegisterUser(responseWriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	db, err := getDb()
+	db, err := utils.GetDb()
 	if err != nil {
 		fmt.Println("Error creating database connection :", err)
 		responseWriter.WriteHeader(http.StatusInternalServerError)
@@ -41,7 +42,7 @@ func RegisterUser(responseWriter http.ResponseWriter, request *http.Request) {
 	}
 	defer db.Close()
 
-	_, err = db.db.Exec("INSERT INTO users (login, password) VALUES ($1, $2)", user.Login, hashedPassword)
+	_, err = db.Db.Exec("INSERT INTO users (login, password) VALUES ($1, $2)", user.Login, hashedPassword)
 	if err != nil {
 		fmt.Println("Error inserting user datas :", err)
 		responseWriter.WriteHeader(http.StatusInternalServerError)
