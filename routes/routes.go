@@ -13,5 +13,8 @@ func Routes() *http.ServeMux {
 	// Route POST /api/v1/users/register
 	router.HandleFunc("/api/v1/users/register", routesAuth.RegisterUser)
 
+	// Route POST /api/v1/users/register
+	router.HandleFunc("/api/v1/users/login", routesAuth.LoginUser)
+
 	return router
 }
