@@ -6,7 +6,7 @@ import (
 
 	"strings"
 
-	"github.com/Laodeus/glt/tokenUtils"
+	"github.com/Laodeus/glt/utils/tokenUtils"
 	"github.com/golang-jwt/jwt"
 )
 
