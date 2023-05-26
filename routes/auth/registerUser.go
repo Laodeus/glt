@@ -9,18 +9,13 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type User struct {
-	Login    string `json:"login"`
-	Password string `json:"password"`
-}
-
 func RegisterUser(responseWriter http.ResponseWriter, request *http.Request) {
 	if request.Method != http.MethodPost {
 		responseWriter.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
 
-	var user User
+	var user DbLogin
 	err := json.NewDecoder(request.Body).Decode(&user)
 	if err != nil {
 		responseWriter.WriteHeader(http.StatusBadRequest)
@@ -37,7 +32,6 @@ func RegisterUser(responseWriter http.ResponseWriter, request *http.Request) {
 	db, err := utils.GetDb()
 	if err != nil {
 		fmt.Println("Error creating database connection :", err)
-		responseWriter.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	defer db.Close()
