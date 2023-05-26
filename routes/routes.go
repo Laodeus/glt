@@ -12,14 +12,16 @@ func Routes() *http.ServeMux {
 
 	router := http.NewServeMux()
 
+	// Auth
 	// Route POST /api/v1/users/register
 	router.HandleFunc("/api/v1/users/register", routesAuth.RegisterUser)
 
 	// Route POST /api/v1/users/register
 	router.HandleFunc("/api/v1/users/login", routesAuth.LoginUser)
 
-	// Route POST /api/v1/vehicles
-	router.HandleFunc("/api/v1/vehicles", middlewares.ProtectedMiddelware(routesVehicules.PostNewVehicules))
+	// Vehicules
+	// Route POST and GET /api/v1/vehicles
+	router.HandleFunc("/api/v1/vehicles", middlewares.ProtectedMiddelware(routesVehicules.VehiculesMethodHandler))
 
 	return router
 }
