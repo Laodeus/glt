@@ -42,11 +42,14 @@ func seedDatabase(db *sql.DB) error {
 		time TIMESTAMP,
 		FOREIGN KEY (user_id) REFERENCES users(id)
 	);
+	
+	CREATE TYPE usage_enum AS ENUM ('take', 'leave');
 
 	CREATE TABLE IF NOT EXISTS vehicules_usage (
 		id SERIAL PRIMARY KEY,
 		user_id INTEGER,
 		vehicules_id INTEGER,
+		usage usage_enum,
 		time TIMESTAMP,
 		FOREIGN KEY (user_id) REFERENCES users(id),
 		FOREIGN KEY (vehicules_id) REFERENCES vehicules(id)

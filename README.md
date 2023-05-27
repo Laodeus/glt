@@ -60,11 +60,6 @@ return : JSON
 
 - POST /api/v1/vehicles/take : Cet endpoint permet à l'utilisateur de prendre un véhicule. Il accepte l'ID du véhicule. Il renvoie un message de confirmation si l'emprunt est réussi.
 
-
-| Paramètre | Type | Description |
-| :--------------- |:---------------:| -----:|
-| id | integer | id du vehicule |
-
 return : string
 
 
