@@ -13,7 +13,7 @@ import (
 	"github.com/Laodeus/glt/utils/tokenUtils"
 )
 
-func TakeVehicule(responseWriter http.ResponseWriter, request *http.Request) {
+func LeaveVehicule(responseWriter http.ResponseWriter, request *http.Request) {
 	if request.Method != http.MethodPost {
 		responseWriter.WriteHeader(http.StatusMethodNotAllowed)
 		return
@@ -63,17 +63,21 @@ func TakeVehicule(responseWriter http.ResponseWriter, request *http.Request) {
 
 	var usage vehiculesUsage.VehiculesUsageDb
 	err = db.Db.QueryRow("SELECT * FROM vehicules_usage WHERE user_id = $1 ORDER BY time DESC LIMIT 1", userid).Scan(&usage.Id, &usage.UserId, &usage.VehiculesId, &usage.Usage, &usage.Time)
-	if err != nil && err != sql.ErrNoRows {
+	if err != nil {
 		responseWriter.WriteHeader(http.StatusInternalServerError)
 		responseWriter.Write([]byte(err.Error()))
 		return
-	} else if usage.Usage == "take" {
+	} else if usage.Usage == "leave" || err == sql.ErrNoRows {
 		responseWriter.WriteHeader(http.StatusBadRequest)
-		responseWriter.Write([]byte(fmt.Sprintf("you are already in the vehicule %d", usage.Id)))
+		responseWriter.Write([]byte(fmt.Sprintf("you are not in a vehicule")))
+		return
+	} else if usage.VehiculesId != vehiculeRequest.Id {
+		responseWriter.WriteHeader(http.StatusBadRequest)
+		responseWriter.Write([]byte(fmt.Sprintf("you are not in this vehicule")))
 		return
 	}
 
-	_, err = db.Db.Exec("INSERT INTO vehicules_usage (user_id, vehicules_id, usage, time) VALUES ($1, $2, $3, $4)", userid, dbVehicules.Id, "take", time.Now())
+	_, err = db.Db.Exec("INSERT INTO vehicules_usage (user_id, vehicules_id, usage, time) VALUES ($1, $2, $3, $4)", userid, dbVehicules.Id, "leave", time.Now())
 
 	if err != nil {
 		responseWriter.WriteHeader(http.StatusInternalServerError)
@@ -82,5 +86,5 @@ func TakeVehicule(responseWriter http.ResponseWriter, request *http.Request) {
 	}
 
 	responseWriter.WriteHeader(http.StatusOK)
-	responseWriter.Write([]byte(fmt.Sprintf("you take the vehicule %s of type %s", dbVehicules.Name, dbVehicules.Type)))
+	responseWriter.Write([]byte(fmt.Sprintf("you leaving this vehicule")))
 }

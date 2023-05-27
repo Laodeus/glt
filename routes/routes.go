@@ -26,5 +26,8 @@ func Routes() *http.ServeMux {
 	// Route POST and GET /api/v1/vehicles
 	router.HandleFunc("/api/v1/vehicles/take", middlewares.ProtectedMiddelware(routesVehicules.TakeVehicule))
 
+	// Route POST and GET /api/v1/vehicles/leave
+	router.HandleFunc("/api/v1/vehicles/leave", middlewares.ProtectedMiddelware(routesVehicules.LeaveVehicule))
+
 	return router
 }
