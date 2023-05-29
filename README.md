@@ -71,8 +71,6 @@ return : string
 
 return : string
 
-- GET /api/v1/vehicles : Cet endpoint permet de récupérer les véhicules avec leurs positions et leur utilisateur pour une période donnée. Il accepte le token d'authentification dans l'en-tête de la requête, et deux paramètres de requête : start et end qui représentent respectivement le timestamp de début et de fin pour la récupération des données.
-
 ### Mouvement
 
 - POST /api/v1/positions : Cet endpoint permet à l'utilisateur d'envoyer sa position avec un timestamp. Il accepte la position de l'utilisateur et le timestamp dans le corps de la requête. Il renvoie un message de confirmation si l'action est réussie.
@@ -93,18 +91,30 @@ return : string
 | start | timestamps | debut de l'affichage des données |
 | lon | timestamps | fin de l'affichage des données |
 
+exemple : 
+
+'''json
+{
+    "start": "2023-05-25T00:00:00Z",
+    "end": "2023-05-26T00:00:00Z"
+}
+'''
+
 
 
 // todo
 '''json
-{
-  [
-    {
-        id : integer,
-        name : string,
-        type: string
-    }
-  ]
-}
-
+[{
+    "id": int,
+    "user_id": int,
+    "time": timestamp,
+    "lat": float,
+    "lon": float,
+    "vehicule_id": int,
+    "vehicule_name": string,
+    "vehicule_type": string
+}, ...]
 '''
+
+
+- GET /api/v1/vehicles : Cet endpoint permet de récupérer les véhicules avec leurs positions et leur utilisateur pour une période donnée. Il accepte le token d'authentification dans l'en-tête de la requête, et deux paramètres de requête : start et end qui représentent respectivement le timestamp de début et de fin pour la récupération des données.

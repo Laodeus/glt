@@ -18,6 +18,7 @@ type PositionRequest struct {
 
 func SendPosition(responseWriter http.ResponseWriter, request *http.Request) {
 	if request.Method != http.MethodPost {
+
 		responseWriter.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -25,6 +26,7 @@ func SendPosition(responseWriter http.ResponseWriter, request *http.Request) {
 	var positionRequest PositionRequest
 	err := json.NewDecoder(request.Body).Decode(&positionRequest)
 	if err != nil {
+
 		responseWriter.WriteHeader(http.StatusBadRequest)
 		responseWriter.Write([]byte("bad body"))
 		return
