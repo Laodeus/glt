@@ -54,6 +54,9 @@ func seedDatabase(db *sql.DB) error {
 		FOREIGN KEY (user_id) REFERENCES users(id),
 		FOREIGN KEY (vehicules_id) REFERENCES vehicules(id)
 	);
+
+	ALTER TABLE "public"."location" ADD COLUMN "lat" double precision;
+	ALTER TABLE "public"."location" ADD COLUMN "lon" double precision;
 		
 		`)
 	if err != nil {
