@@ -2,6 +2,7 @@ package routes
 
 import (
 	"net/http"
+	"regexp"
 
 	middlewares "github.com/Laodeus/glt/middelwares"
 	routesAuth "github.com/Laodeus/glt/routes/auth"
@@ -33,6 +34,17 @@ func Routes() *http.ServeMux {
 	// Mouvement
 	// Route POST /api/v1/positions
 	router.HandleFunc("/api/v1/positions", middlewares.ProtectedMiddelware(routeMouvement.SendPosition))
+
+	//POST /api/v1/users/{userId}/movements
+	router.HandleFunc("/api/v1/users/", func(w http.ResponseWriter, r *http.Request) {
+		path := r.URL.Path
+		match, _ := regexp.MatchString(`^/api/v1/users/[0-9]+/movements$`, path)
+		if match {
+			middlewares.ProtectedMiddelware(routeMouvement.GetUserMovements)(w, r)
+		} else {
+			http.NotFound(w, r)
+		}
+	})
 
 	return router
 }
