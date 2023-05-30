@@ -19,6 +19,7 @@ func LoginUser(responseWriter http.ResponseWriter, request *http.Request) {
 	var user DbLogin
 	err := json.NewDecoder(request.Body).Decode(&user)
 	if err != nil {
+		fmt.Println(err)
 		responseWriter.WriteHeader(http.StatusBadRequest)
 		responseWriter.Write([]byte("bad body"))
 		return
@@ -43,6 +44,5 @@ func LoginUser(responseWriter http.ResponseWriter, request *http.Request) {
 	generatedToken, err := tokenUtils.GenerateToken(retrievedUser.Id)
 
 	responseWriter.WriteHeader(http.StatusUnauthorized)
-	responseWriter.Write([]byte(fmt.Sprintf("bearer %s", generatedToken)))
-
+	responseWriter.Write([]byte(fmt.Sprintf("Bearer %s", generatedToken)))
 }
