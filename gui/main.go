@@ -1,13 +1,21 @@
 package main
 
 import (
+	"fmt"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+
+	"github.com/Laodeus/glt/gui/apiCall"
+	"github.com/Laodeus/glt/utils"
 )
 
 func main() {
+
+	utils.LoadEnv()
+
 	myApp := app.New()
 	myWindow := myApp.NewWindow("Glt")
 
@@ -18,7 +26,12 @@ func main() {
 	inputPassword.PlaceHolder = "secret"
 
 	loginButton := widget.NewButton("Login", func() {
-		// Action to perform when the "Login" button is clicked
+		response, err := apiCall.Login(inputUsername.Text, inputPassword.Text)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		fmt.Println(response)
 	})
 
 	registerButton := widget.NewButton("Register", func() {
