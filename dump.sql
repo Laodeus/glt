@@ -3,7 +3,6 @@
 \connect "glt";
 
 CREATE SEQUENCE location_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
-
 CREATE TABLE "public"."location" (
     "id" integer DEFAULT nextval('location_id_seq') NOT NULL,
     "user_id" integer,
@@ -15,7 +14,6 @@ CREATE TABLE "public"."location" (
 
 
 CREATE SEQUENCE users_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
-
 CREATE TABLE "public"."users" (
     "id" integer DEFAULT nextval('users_id_seq') NOT NULL,
     "login" text,
@@ -26,7 +24,6 @@ CREATE TABLE "public"."users" (
 
 
 CREATE SEQUENCE vehicules_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
-
 CREATE TABLE "public"."vehicules" (
     "id" integer DEFAULT nextval('vehicules_id_seq') NOT NULL,
     "name" text,
@@ -35,9 +32,9 @@ CREATE TABLE "public"."vehicules" (
     CONSTRAINT "vehicules_pkey" PRIMARY KEY ("id")
 ) WITH (oids = false);
 
+CREATE TYPE "usage_enum" AS ENUM ('take', 'leave');
 
 CREATE SEQUENCE vehicules_usage_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
-
 CREATE TABLE "public"."vehicules_usage" (
     "id" integer DEFAULT nextval('vehicules_usage_id_seq') NOT NULL,
     "user_id" integer,
@@ -49,7 +46,6 @@ CREATE TABLE "public"."vehicules_usage" (
 
 
 ALTER TABLE ONLY "public"."location" ADD CONSTRAINT "location_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) NOT DEFERRABLE;
-
 ALTER TABLE ONLY "public"."vehicules_usage" ADD CONSTRAINT "vehicules_usage_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) NOT DEFERRABLE;
 ALTER TABLE ONLY "public"."vehicules_usage" ADD CONSTRAINT "vehicules_usage_vehicules_id_fkey" FOREIGN KEY (vehicules_id) REFERENCES vehicules(id) NOT DEFERRABLE;
 
